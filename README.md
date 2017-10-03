@@ -1,4 +1,4 @@
-# Smile Static Site
+# Static Site Boilerplate
 
 ## Development Setup
 
