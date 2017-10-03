@@ -1,0 +1,30 @@
+{
+  "name": "static-site-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "build": "gulp",
+    "build-prod": "gulp build-prod",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-htmlincluder": "^0.1.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-uncss": "^1.0.6",
+    "pump": "^1.0.2"
+  },
+  "dependencies": {
+    "atomic-scss": "^1.2.12",
+    "lory.js": "^2.3.3",
+    "susy": "^2.2.12"
+  }
+}

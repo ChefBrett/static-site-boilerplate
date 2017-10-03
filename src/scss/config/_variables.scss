@@ -1,0 +1,97 @@
+//variable naming
+// use $<property>-description: value
+  // ex.
+  // $color-light-blue
+  // $width-large
+
+// base font -- assuming we are working with font-size: 10px;
+// default is 18px
+$font-size-base: 1.8rem;
+
+// wire framing colors
+$color-black    : #101010;
+$color-white    : #fefefe;
+$color-lightgray: lightgray;
+$color-gray     : gray;
+
+//width of site's content
+$width-wrapper: 1500px;
+
+// the footer is always supposed to be on the bottom of the page, unless the
+// content naturally pushes the footer below the fold. However, some content
+// doesn't add to the document height, and there can be cases where the footer
+// will appear above other content when the browser has a small view height.
+//
+// When a browsers height is less than this variable, then we need to force the
+// footer below the bottom of the screen so everything will fit the following
+// pages/components determine this cutoff as necessary:
+//   home page, navigation
+$height-cutoff-point: 750px;
+
+// breakpoints
+// starting from 400px and using * 1.4 to scale (500 * 1.4 = 560, etc.)
+  // Redefine these widths by the actual design!
+$bp-lgx: 1700px;
+$bp-lg : 1097px;
+$bp-md : 784px;
+$bp-sm : 560px;
+$bp-smx: 400px;
+
+$bp-wrapper: $width-wrapper;
+
+$padding-grid-container: 0 10px;
+
+// heights/widths
+  // ex.
+  // $height-panel-title: 75px;
+  // $width-col: round($width-wrapper / 3);
+
+// site colors
+  // ex.
+  // $color-brand-gold: #ffb81b;
+  // $color-brand-blue: #0e254d;
+$color-brand-blue  : #232f3f;
+$color-brand-yellow: #febd69;
+$color-brand-orange: #ff9900;
+
+// heights/widths
+$height-header   : 56px;
+$height-header-md: 48px;
+$height-header-sm: 48px;
+$height-footer   : 208px;
+$height-footer-md: 208px;
+$height-footer-sm: 344px;
+
+$min-height-site   : $height-cutoff-point;
+$min-height-site-sm: $height-cutoff-point + 400px;
+
+// susy grid config
+
+$grid-columns: 12;
+
+$susy: (
+  flow              : ltr,
+  math              : fluid,
+  output            : float,
+  gutter-position   : after,
+  container         : auto,
+  container-position: center,
+  columns           : $grid-columns,
+  gutters           : .25,
+  column-width      : false,
+  global-box-sizing : border-box,
+  last-flow         : to,
+  debug: (
+    image : hide,
+    color : rgba(#66f, .25),
+    output: background,
+    toggle: top right,
+  ),
+  use-custom: (
+    background-image  : true,
+    background-options: false,
+    box-sizing        : true,
+    clearfix          : false,
+    rem               : true,
+  )
+);

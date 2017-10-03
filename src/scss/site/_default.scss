@@ -1,0 +1,23 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.hide {
+  display: none;
+}
+
+.site-body {
+  min-height: calc(100vh - #{$height-header + $height-footer});
+
+  @media all and (max-width: $bp-md) {
+    min-height: calc(100vh - #{$height-header-md + $height-footer-md});
+  }
+
+  @media all and (max-height: $height-cutoff-point) {
+    min-height: $min-height-site;
+  }
+
+  @media all and (max-width: $bp-sm) {
+    min-height: calc(100vh - #{$height-header-sm + $height-footer-sm});
+  }
+}
