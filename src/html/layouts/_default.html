@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Smile</title>
+  <title><!--#data jsonPath="title" default="Default Title" --></title>
   <link rel="stylesheet" href="/public/css/atomic.css">
   <link rel="stylesheet" href="/public/css/site.css">
 </head>
 <body>
-<!--#include virtual file="/global/-header.html" -->
+<!--#insert path="../global/-header.html" -->
 <div class="site-body">
 <!--#middle -->
 </div>
-<!--#include virtual file="/global/-footer.html" -->
+<!--#insert path="../global/-footer.html" -->
 </body>
-<script src="/public/js/index.js"></script>
+<script src="<!--#jsonInsert jsonPath="bundle" -->"></script>
 </html>
