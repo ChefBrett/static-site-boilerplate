@@ -1,39 +1,41 @@
-var gulp         = require('gulp'),
-    sass         = require('gulp-sass'),
-    uncss        = require('gulp-uncss'),
-    autoprefixer = require('gulp-autoprefixer'),
-    includer     = require('gulp-htmlincluder'),
-    concat       = require('gulp-concat'),
-    uglify       = require('gulp-uglify'),
-    cssnano      = require('gulp-cssnano'),
-    pump         = require('pump'),
-    babelify     = require('babelify'),
-    browserify   = require('browserify'),
-    source       = require('vinyl-source-stream');
+const gulp         = require('gulp'),
+      sass         = require('gulp-sass'),
+      uncss        = require('gulp-uncss'),
+      autoprefixer = require('gulp-autoprefixer'),
+      includer     = require('gulp-htmlincluder'),
+      concat       = require('gulp-concat'),
+      uglify       = require('gulp-uglify'),
+      cssnano      = require('gulp-cssnano'),
+      pump         = require('pump'),
+      babelify     = require('babelify'),
+      browserify   = require('browserify'),
+      source       = require('vinyl-source-stream');
 
 /*
  * Create variables for our project paths so we can change in one place
  */
-var paths = {
+const paths = {
+  // paths to read from
   'sass'       : './src/scss/**/*.scss',
+  'atomic'     : './build/public/css/atomic.css',
   'js'         : './src/js/index.js',
   'html'       : './src/html/**/*.html',
+  'images'     : './src/public/images/**/*.*',
+  'fonts'      : './src/public/fonts/**/*.*',
+  // paths to write to
   'css'        : './build/public/css/',
-  'atomic'     : './build/public/css/atomic.css',
   'builtJs'    : './build/public/js/',
   'builtHtml'  : './build/',
-  'images'     : './src/public/images/**/*.*',
   'buildImages': './build/public/images',
-  'fonts'      : './src/public/fonts/**/*.*',
   'buildFonts' : './build/public/fonts',
 };
 
 gulp.task('env-prod', function() {
-    return process.env.NODE_ENV = 'prod';
+  return process.env.NODE_ENV = 'prod';
 });
 
 gulp.task('env-dev', function() {
-    return process.env.NODE_ENV = 'dev';
+  return process.env.NODE_ENV = 'dev';
 });
 
 gulp.task('htmlIncluder', function() {
@@ -75,23 +77,30 @@ gulp.task('fonts', function() {
 })
 
 gulp.task('js', function() {
-  return browserify({
+  const env = process.env.NODE_ENV;
+  const filename = env === 'prod' ? 'bundle.min.js' : 'bundle.js';
+  let pipeline = browserify({
         entries: [ paths.js ]
     })
     .transform(babelify.configure({
       presets: ['env'],
     }))
     .bundle()
-    .pipe(source("bundle.js"))
-    .pipe(gulp.dest(paths.builtJs))
-    ;
+    .pipe(source(filename));
+
+  if(env === 'prod')
+    pipeline = pipeline.pipe(uglify());
+
+  return pipeline.pipe(gulp.dest(paths.builtJs));
 });
 
 gulp.task('sass', function() {
-  gulp.src(paths.sass)
-    .pipe(sass({ errLogToConsole: true }))
-    .pipe(autoprefixer({browsers: ['last 2 versions']}))
-    .pipe(gulp.dest(paths.css))
+  pump([
+    gulp.src(paths.sass),
+    sass({ errLogToConsole: true }),
+    autoprefixer({browsers: ['last 2 versions']}),
+    gulp.dest(paths.css),
+  ]);
 });
 
 gulp.task('uncss', ['sass'], function() {
